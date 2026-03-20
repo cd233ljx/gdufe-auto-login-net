@@ -16,12 +16,10 @@
 ```
 auto-login-net/
 ├── login.py          # 主程序
-├── config.json       # 配置文件（需自行创建）
+├── README.md         # 项目说明
+├── config.json.example # 配置文件示例
 ├── requirements.txt  # 依赖包列表
-├── build.py          # 打包脚本
-├── Ostar37.ico       # 程序图标
-├── venv/             # 虚拟环境
-└── dist/             # 打包输出目录
+└──  Ostar37.ico       # 程序图标
 ```
 
 ## 配置说明
