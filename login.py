@@ -35,6 +35,15 @@ def get_local_ip():
         return '172.31.28.69'
 
 
+def check_internet_connectivity():
+    try:
+        import urllib.request
+        urllib.request.urlopen('https://www.baidu.com', timeout=5)
+        return True
+    except:
+        return False
+
+
 def show_notification(title, message):
     try:
         from win10toast import ToastNotifier
@@ -82,9 +91,16 @@ def login():
         response = requests.get(url, params=params, timeout=10)
         response.raise_for_status()
         
-        if '认证成功' in response.text or 'result":1' in response.text or 'result":0' in response.text:
-            show_notification('校园网登录', '登录成功！')
-            print('登录成功！')
+        login_success = '认证成功' in response.text or 'result":1' in response.text
+        
+        if login_success:
+            time.sleep(2)
+            if check_internet_connectivity():
+                show_notification('校园网登录', '登录成功！')
+                print('登录成功！')
+            else:
+                show_notification('校园网登录', '登录失败，网络未连通')
+                print(f'登录失败，网络未连通：{response.text}')
         else:
             show_notification('校园网登录', '登录失败，请检查账号密码')
             print(f'登录失败：{response.text}')
